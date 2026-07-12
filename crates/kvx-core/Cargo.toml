@@ -1,10 +1,9 @@
 [package]
 name = "kvx-core"
 edition.workspace = true
-version.workspace = true
 license.workspace = true
+version.workspace = true
 
 [dependencies]
-thiserror.workspace = true
-
 kvx-types = { path = "../kvx-types" }
+thiserror = "2.0.18"
