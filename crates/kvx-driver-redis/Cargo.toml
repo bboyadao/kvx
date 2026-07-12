@@ -9,3 +9,4 @@ kvx-core = { path = "../kvx-core" }
 kvx-types = { path = "../kvx-types" }
 
 tokio = { version = "1", features = ["net"] }
+redis = { version = "0.32", features = ["tokio-comp"] }

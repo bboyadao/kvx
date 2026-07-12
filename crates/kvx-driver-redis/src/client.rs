@@ -1,20 +1,30 @@
+use redis::{
+    aio::MultiplexedConnection,
+    Client,
+};
+
 use crate::RedisOptions;
 
-/// Redis client.
-///
-/// Currently only stores configuration.
-/// The transport layer will be introduced later.
-#[derive(Debug, Clone)]
+/// Connected Redis client.
 pub struct RedisClient {
-    options: RedisOptions,
+    connection: MultiplexedConnection,
 }
 
 impl RedisClient {
-    pub fn new(options: RedisOptions) -> Self {
-        Self { options }
+    /// Connect to Redis.
+    pub async fn connect(
+        options: RedisOptions,
+    ) -> redis::RedisResult<Self> {
+        let client = Client::open(options.url)?;
+
+        let connection = client
+            .get_multiplexed_async_connection()
+            .await?;
+
+        Ok(Self { connection })
     }
 
-    pub fn options(&self) -> &RedisOptions {
-        &self.options
+    pub(crate) fn connection(&self) -> &MultiplexedConnection {
+        &self.connection
     }
 }
