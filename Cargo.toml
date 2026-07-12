@@ -2,10 +2,10 @@
 resolver = "2"
 
 members = [
-    "crates/kvx",
-    "crates/kvx-core", "crates/kvx-driver-redis",
+    "crates/kvx-core",
+    "crates/kvx-driver-redis",
     "crates/kvx-types",
-    "crates/kvx-driver-redis", "crates/kvx-cli",
+    "crates/kvx-cli", "crates/kvx",
 ]
 
 [workspace.package]

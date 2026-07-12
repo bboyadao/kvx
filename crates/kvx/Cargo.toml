@@ -1,0 +1,11 @@
+[package]
+name = "kvx"
+version = "0.1.0"
+edition = "2024"
+
+
+[dependencies]
+anyhow = "1"
+
+kvx-core = { path = "../kvx-core" }
+kvx-driver-redis = { path = "../kvx-driver-redis" }
