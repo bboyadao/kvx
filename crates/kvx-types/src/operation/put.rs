@@ -1,15 +1,9 @@
-use crate::{
-    Key,
-    Value,
-};
+use crate::{Key, Operation, Value};
 
-use super::Operation;
-
-/// Store a value.
 #[derive(Debug, Clone)]
 pub struct Put {
-    pub key: Key,
-    pub value: Value,
+    key: Key,
+    value: Value,
 }
 
 impl Put {
@@ -21,6 +15,14 @@ impl Put {
             key: key.into(),
             value: value.into(),
         }
+    }
+
+    pub fn key(&self) -> &Key {
+        &self.key
+    }
+
+    pub fn value(&self) -> &Value {
+        &self.value
     }
 }
 

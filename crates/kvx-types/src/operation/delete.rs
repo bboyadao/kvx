@@ -1,18 +1,17 @@
-use crate::Key;
+use crate::{Key, Operation};
 
-use super::Operation;
-
-/// Delete a key.
 #[derive(Debug, Clone)]
 pub struct Delete {
-    pub key: Key,
+    key: Key,
 }
 
 impl Delete {
     pub fn new(key: impl Into<Key>) -> Self {
-        Self {
-            key: key.into(),
-        }
+        Self { key: key.into() }
+    }
+
+    pub fn key(&self) -> &Key {
+        &self.key
     }
 }
 

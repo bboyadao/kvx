@@ -1,21 +1,17 @@
-use crate::{
-    Key,
-    Value,
-};
+use crate::{Key, Operation, Value};
 
-use super::Operation;
-
-/// Get the value associated with a key.
 #[derive(Debug, Clone)]
 pub struct Get {
-    pub key: Key,
+    key: Key,
 }
 
 impl Get {
     pub fn new(key: impl Into<Key>) -> Self {
-        Self {
-            key: key.into(),
-        }
+        Self { key: key.into() }
+    }
+
+    pub fn key(&self) -> &Key {
+        &self.key
     }
 }
 

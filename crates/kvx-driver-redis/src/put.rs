@@ -18,8 +18,8 @@ impl Handler<Put> for RedisClient {
 
         let _: () = conn
     .set(
-        operation.key.as_bytes(),
-        operation.value.as_bytes(),
+        operation.key().as_bytes(),
+        operation.value().as_bytes(),
     )
     .await
     .map_err(|e| KvError::Backend(e.to_string()))?;

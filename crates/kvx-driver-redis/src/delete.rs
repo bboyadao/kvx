@@ -17,7 +17,7 @@ impl Handler<Delete> for RedisClient {
         let mut conn = self.connection().clone();
 
         let deleted: usize = conn
-            .del(operation.key.as_bytes())
+            .del(operation.key().as_bytes())
             .await
             .map_err(|e| KvError::Backend(e.to_string()))?;
 

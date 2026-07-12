@@ -21,7 +21,7 @@ impl Handler<Get> for RedisClient {
         let mut conn = self.connection().clone();
 
         let value: Option<Vec<u8>> = conn
-            .get(operation.key.as_bytes())
+            .get(operation.key().as_bytes())
             .await
             .map_err(|e| KvError::Backend(e.to_string()))?;
 
