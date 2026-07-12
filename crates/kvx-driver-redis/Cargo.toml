@@ -1,0 +1,9 @@
+[package]
+name = "kvx-driver-redis"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+
+[dependencies]
+kvx-core = { path = "../kvx-core" }
+kvx-types = { path = "../kvx-types" }
