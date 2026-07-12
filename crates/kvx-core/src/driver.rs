@@ -1,19 +1,8 @@
-use crate::{
-    Connection,
-    KvError,
-};
-
-/// A backend driver.
+/// Backend driver.
 ///
-/// A driver is responsible for creating connections.
+/// A driver only defines the types required
+/// to create a backend client.
 pub trait Driver {
-    /// Active connection type.
-    type Connection: Connection;
-
-    /// Connect to backend.
-    fn connect(
-        uri: impl AsRef<str>,
-    ) -> impl Future<
-        Output = Result<Self::Connection, KvError>
-    > + Send;
+    type Client;
+    type Options;
 }

@@ -2,22 +2,10 @@ use std::future::Future;
 
 use kvx_types::Operation;
 
-use crate::{
-    Connection,
-    KvError,
-};
+use crate::KvError;
 
-/// Handles a single operation.
-///
-/// A backend implements this trait once for every
-/// supported operation.
-///
-/// Example:
-///
-/// impl Handler<Get> for RedisConnection {}
-///
-/// impl Handler<Put> for RedisConnection {}
-pub trait Handler<O>: Connection
+/// Executes one operation.
+pub trait Handler<O>
 where
     O: Operation,
 {
