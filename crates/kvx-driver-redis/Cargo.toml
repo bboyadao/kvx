@@ -8,5 +8,5 @@ license.workspace = true
 kvx-core = { path = "../kvx-core" }
 kvx-types = { path = "../kvx-types" }
 
-tokio = { version = "1", features = ["net"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "net"] }
 redis = { version = "0.32", features = ["tokio-comp"] }

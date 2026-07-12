@@ -1,6 +1,6 @@
 use kvx_core::Driver;
 use crate::{
-    client::RedisClient,
+    RedisClient,
     RedisOptions,
 };
 
