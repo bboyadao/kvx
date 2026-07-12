@@ -1,26 +1,45 @@
+use async_trait::async_trait;
 use redis::AsyncCommands;
 
 use kvx_core::{
     Handler,
-    KvError,
+    KvxError,
 };
+
 use kvx_types::Set;
+
 use crate::RedisClient;
 
+
+#[async_trait]
 impl Handler<Set> for RedisClient {
+
+    type Output = ();
+
+
     async fn handle(
         &self,
         operation: Set,
-    ) -> Result<(), KvError> {
-        let mut conn = self.connection().clone();
+    ) -> Result<Self::Output, KvxError> {
 
-        let _: () = conn
-    .set(
-        operation.key().as_bytes(),
-        operation.value().as_bytes(),
-    )
-    .await
-    .map_err(|e| KvError::Backend(e.to_string()))?;
+
+        let mut conn =
+            self.connection();
+
+
+        let _: () =
+            conn
+            .set(
+                operation.key().as_bytes(),
+                operation.value().as_bytes(),
+            )
+            .await
+            .map_err(|e|
+                KvxError::Backend(
+                    e.to_string()
+                )
+            )?;
+
 
         Ok(())
     }

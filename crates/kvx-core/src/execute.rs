@@ -1,21 +1,18 @@
-use std::future::Future;
+use async_trait::async_trait;
 
-use kvx_types::Operation;
+use crate::KvxError;
 
-use crate::{
-    Connection,
-    KvError,
-};
 
-/// Executes a specific operation.
-///
-/// Backends implement this trait once per supported operation.
-pub trait Execute<O>: Connection
-where
-    O: Operation,
-{
-    fn execute(
+#[async_trait]
+pub trait Execute<O>: Send + Sync {
+
+    type Output: Send;
+
+
+    async fn execute(
         &self,
         operation: O,
-    ) -> impl Future<Output = Result<O::Output, KvError>> + Send;
+    )
+    -> Result<Self::Output, KvxError>;
+
 }

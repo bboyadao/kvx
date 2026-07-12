@@ -1,24 +1,26 @@
-use std::future::Future;
-
-use kvx_types::Operation;
-
 use crate::{
-    Handler,
-    KvError,
+    Execute,
 };
 
-pub trait ExecuteExt: Sized {
-    #[inline]
-    fn execute<O>(
-        &self,
-        operation: O,
-    ) -> impl Future<Output = Result<O::Output, KvError>> + Send
-    where
-        O: Operation,
-        Self: Handler<O>,
-    {
-        <Self as Handler<O>>::handle(self, operation)
-    }
+use kvx_types::{
+    Delete,
+    Get,
+    Set,
+};
+
+
+
+pub trait ExecuteExt {
+
 }
 
-impl<T> ExecuteExt for T {}
+
+
+impl<T> ExecuteExt for T
+where
+    T: Execute<Set>
+        + Execute<Get>
+        + Execute<Delete>,
+{
+
+}

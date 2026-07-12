@@ -1,9 +1,9 @@
+use async_trait::async_trait;
 use redis::AsyncCommands;
-use crate::client::RedisClient;
 
 use kvx_core::{
     Handler,
-    KvError,
+    KvxError,
 };
 
 use kvx_types::{
@@ -11,19 +11,37 @@ use kvx_types::{
     Value,
 };
 
+use crate::RedisClient;
 
 
+#[async_trait]
 impl Handler<Get> for RedisClient {
+
+    type Output = Option<Value>;
+
+
     async fn handle(
         &self,
         operation: Get,
-    ) -> Result<Option<Value>, KvError> {
-        let mut conn = self.connection().clone();
+    ) -> Result<Self::Output, KvxError> {
 
-        let value: Option<Vec<u8>> = conn
-            .get(operation.key().as_bytes())
+
+        let mut conn =
+            self.connection();
+
+
+        let value: Option<Vec<u8>> =
+            conn
+            .get(
+                operation.key().as_bytes()
+            )
             .await
-            .map_err(|e| KvError::Backend(e.to_string()))?;
+            .map_err(|e|
+                KvxError::Backend(
+                    e.to_string()
+                )
+            )?;
+
 
         Ok(value.map(Value::from))
     }

@@ -1,18 +1,17 @@
-use std::future::Future;
+use async_trait::async_trait;
 
-use kvx_types::Operation;
+use crate::KvxError;
 
-use crate::KvError;
+#[async_trait]
+pub trait Handler<O>: Send + Sync {
 
-/// Handles a specific operation.
-pub trait Handler<O>
-where
-    O: Operation,
-{
-    fn handle(
+    type Output: Send;
+
+
+    async fn handle(
         &self,
         operation: O,
-    ) -> impl Future<
-        Output = Result<O::Output, KvError>,
-    > + Send;
+    )
+    -> Result<Self::Output, KvxError>;
+
 }

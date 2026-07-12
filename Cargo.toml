@@ -16,3 +16,4 @@ license = "MIT"
 [workspace.dependencies]
 bytes = "1.10"
 thiserror = "2"
+

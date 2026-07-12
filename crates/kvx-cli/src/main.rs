@@ -1,5 +1,15 @@
-use clap::{Parser, Subcommand};
-use kvx::connect;
+use clap::{
+    Parser,
+    Subcommand,
+};
+
+use kvx::{
+    connect,
+    Delete,
+    Execute,
+    Get,
+    Set,
+};
 
 
 #[derive(Parser)]
@@ -10,6 +20,7 @@ struct Cli {
 
     #[command(subcommand)]
     command: Command,
+
 }
 
 
@@ -18,68 +29,105 @@ struct Cli {
 enum Command {
 
     Get {
-        key: String
+        key: String,
     },
 
 
     Set {
         key: String,
-        value: String
+        value: String,
     },
 
+
     Delete {
-        key: String
-    }
+        key: String,
+    },
+
 }
 
 
 
 #[tokio::main]
-async fn main() -> anyhow::Result<()> {
+async fn main()
+-> anyhow::Result<()> {
 
 
-    let cli = Cli::parse();
+    let cli =
+        Cli::parse();
+
 
 
     let db =
-        connect(&cli.url)
+        connect(
+            &cli.url
+        )
         .await?;
+
 
 
     match cli.command {
 
 
-        Command::Get { key } => {
+        Command::Get {
+            key,
+        } => {
+
 
             let value =
-                db.get(&key)
+                db.execute(
+                    Get::new(key)
+                )
                 .await?;
 
 
             println!(
-                "{:?}",
-                value
+                "{value:?}"
             );
+
         }
 
 
-        Command::Set { key, value } => {
 
-            db.set(
-                &key,
-                value.as_bytes()
+        Command::Set {
+            key,
+            value,
+        } => {
+
+
+            db.execute(
+                Set::new(
+                    key,
+                    value,
+                )
             )
             .await?;
+
+
         }
 
 
-        Command::Delete { key } => {
 
-            db.delete(&key)
-            .await?;
+        Command::Delete {
+            key,
+        } => {
+
+
+            let deleted =
+                db.execute(
+                    Delete::new(key)
+                )
+                .await?;
+
+
+            println!(
+                "deleted: {deleted}"
+            );
+
         }
+
     }
 
 
     Ok(())
+
 }

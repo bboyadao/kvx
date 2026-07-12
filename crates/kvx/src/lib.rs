@@ -1,26 +1,54 @@
 use anyhow::{anyhow, Result};
 
-use kvx_core::Connection;
-use kvx_driver_redis::RedisConnection;
+use kvx_core::Executor;
+
+use kvx_driver_redis::{
+    RedisClient,
+    RedisOptions,
+};
+
+
+pub use kvx_core::{
+    Execute,
+    KvxError,
+};
+
+pub use kvx_types::{
+    Delete,
+    Get,
+    Set,
+    Value,
+};
+
 
 
 pub async fn connect(
     url: &str,
-) -> Result<Box<dyn Connection>> {
+)
+-> Result<Executor<RedisClient>> {
+
 
     if url.starts_with("redis://") {
 
-        let connection =
-            RedisConnection::connect(url)
+
+        let client =
+            RedisClient::connect(
+                RedisOptions::new(url)
+            )
             .await?;
 
 
-        return Ok(Box::new(connection));
+        return Ok(
+            Executor::new(client)
+        );
     }
 
 
-    Err(anyhow!(
-        "unsupported kvx connection url: {}",
-        url
-    ))
+    Err(
+        anyhow!(
+            "unsupported kvx connection url: {}",
+            url
+        )
+    )
+
 }

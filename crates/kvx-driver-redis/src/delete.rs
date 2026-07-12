@@ -1,25 +1,44 @@
+use async_trait::async_trait;
 use redis::AsyncCommands;
 
 use kvx_core::{
     Handler,
-    KvError,
+    KvxError,
 };
 
 use kvx_types::Delete;
 
 use crate::RedisClient;
 
+
+#[async_trait]
 impl Handler<Delete> for RedisClient {
+
+    type Output = bool;
+
+
     async fn handle(
         &self,
         operation: Delete,
-    ) -> Result<bool, KvError> {
-        let mut conn = self.connection().clone();
+    ) -> Result<Self::Output, KvxError> {
 
-        let deleted: usize = conn
-            .del(operation.key().as_bytes())
+
+        let mut conn =
+            self.connection();
+
+
+        let deleted: usize =
+            conn
+            .del(
+                operation.key().as_bytes()
+            )
             .await
-            .map_err(|e| KvError::Backend(e.to_string()))?;
+            .map_err(|e|
+                KvxError::Backend(
+                    e.to_string()
+                )
+            )?;
+
 
         Ok(deleted > 0)
     }
