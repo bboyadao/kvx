@@ -1,7 +1,8 @@
 mod client;
+mod delete;
 mod driver;
-mod options;
 mod get;
+mod options;
 mod put;
 pub use driver::RedisDriver;
 pub use options::RedisOptions;

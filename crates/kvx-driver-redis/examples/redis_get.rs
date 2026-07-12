@@ -1,29 +1,7 @@
-use kvx_core::ExecuteExt;
-use kvx_driver_redis::{
-    RedisClient,
-    RedisOptions,
-};
-use kvx_types::{
-    Get,
-    Put,
-};
+client.execute(Put::new("hello", "world")).await?;
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let client = RedisClient::connect(
-        RedisOptions::new("redis://127.0.0.1/")
-    )
-    .await?;
+println!("{:?}", client.execute(Get::new("hello")).await?);
 
-    client
-        .execute(Put::new("hello", "world"))
-        .await?;
+client.execute(Delete::new("hello")).await?;
 
-    let value = client
-        .execute(Get::new("hello"))
-        .await?;
-
-    println!("{value:?}");
-
-    Ok(())
-}
+println!("{:?}", client.execute(Get::new("hello")).await?);

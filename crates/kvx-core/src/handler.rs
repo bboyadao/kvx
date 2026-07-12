@@ -4,7 +4,7 @@ use kvx_types::Operation;
 
 use crate::KvError;
 
-/// Executes one operation.
+/// Handles a specific operation.
 pub trait Handler<O>
 where
     O: Operation,
@@ -12,5 +12,7 @@ where
     fn handle(
         &self,
         operation: O,
-    ) -> impl Future<Output = Result<O::Output, KvError>> + Send;
+    ) -> impl Future<
+        Output = Result<O::Output, KvError>,
+    > + Send;
 }

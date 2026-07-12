@@ -17,5 +17,5 @@ impl Delete {
 }
 
 impl Operation for Delete {
-    type Output = ();
+    type Output = bool;
 }
