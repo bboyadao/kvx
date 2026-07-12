@@ -1,5 +1,20 @@
-/// Redis backend client.
+use crate::RedisOptions;
+
+/// Redis client.
 ///
-/// Actual implementation will be added later.
+/// Currently only stores configuration.
+/// The transport layer will be introduced later.
 #[derive(Debug, Clone)]
-pub struct RedisClient;
+pub struct RedisClient {
+    options: RedisOptions,
+}
+
+impl RedisClient {
+    pub fn new(options: RedisOptions) -> Self {
+        Self { options }
+    }
+
+    pub fn options(&self) -> &RedisOptions {
+        &self.options
+    }
+}

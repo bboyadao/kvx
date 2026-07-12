@@ -7,3 +7,5 @@ license.workspace = true
 [dependencies]
 kvx-core = { path = "../kvx-core" }
 kvx-types = { path = "../kvx-types" }
+
+tokio = { version = "1", features = ["net"] }
