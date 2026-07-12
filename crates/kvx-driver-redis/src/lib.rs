@@ -1,7 +1,6 @@
 mod client;
 mod driver;
 mod options;
-
-pub use client::RedisClient;
+mod get;
 pub use driver::RedisDriver;
 pub use options::RedisOptions;
