@@ -1,6 +1,6 @@
 use kvx_core::ExecuteExt;
 use kvx_driver_redis::{RedisClient, RedisOptions};
-use kvx_types::{Delete, Get, Put};
+use kvx_types::{Delete, Get, Set};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -9,7 +9,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     )
     .await?;
 
-    client.execute(Put::new("hello", "world")).await?;
+    client.execute(Set::new("hello", "world")).await?;
 
     let value = client.execute(Get::new("hello")).await?;
     println!("Before delete: {value:?}");

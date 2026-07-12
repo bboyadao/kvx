@@ -1,10 +1,10 @@
 mod delete;
 mod get;
-mod put;
+mod set;
 
 pub use delete::Delete;
 pub use get::Get;
-pub use put::Put;
+pub use set::Set;
 
 /// A backend operation.
 ///
@@ -13,7 +13,7 @@ pub use put::Put;
 /// Examples:
 ///
 /// Get  -> Option<Value>
-/// Put  -> ()
+/// Set  -> ()
 /// Scan -> Stream<Entry>
 pub trait Operation {
     type Output;

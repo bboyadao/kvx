@@ -10,3 +10,5 @@ kvx-types = { path = "../kvx-types" }
 
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "net"] }
 redis = { version = "0.32", features = ["tokio-comp"] }
+anyhow = "1.0.103"
+async-trait = "0.1.89"

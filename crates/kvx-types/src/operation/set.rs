@@ -1,12 +1,12 @@
 use crate::{Key, Operation, Value};
 
 #[derive(Debug, Clone)]
-pub struct Put {
+pub struct Set {
     key: Key,
     value: Value,
 }
 
-impl Put {
+impl Set {
     pub fn new(
         key: impl Into<Key>,
         value: impl Into<Value>,
@@ -26,6 +26,6 @@ impl Put {
     }
 }
 
-impl Operation for Put {
+impl Operation for Set {
     type Output = ();
 }

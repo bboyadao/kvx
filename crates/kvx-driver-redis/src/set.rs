@@ -4,15 +4,13 @@ use kvx_core::{
     Handler,
     KvError,
 };
-
-use kvx_types::Put;
-
+use kvx_types::Set;
 use crate::RedisClient;
 
-impl Handler<Put> for RedisClient {
+impl Handler<Set> for RedisClient {
     async fn handle(
         &self,
-        operation: Put,
+        operation: Set,
     ) -> Result<(), KvError> {
         let mut conn = self.connection().clone();
 

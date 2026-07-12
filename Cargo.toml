@@ -5,7 +5,7 @@ members = [
     "crates/kvx",
     "crates/kvx-core", "crates/kvx-driver-redis",
     "crates/kvx-types",
-    "crates/kvx-driver-redis",
+    "crates/kvx-driver-redis", "crates/kvx-cli",
 ]
 
 [workspace.package]
