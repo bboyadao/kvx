@@ -1,3 +1,3 @@
-mod driver;
+mod client;
 
-pub use driver::WorkersDriver;
+pub use client::WorkersClient;
