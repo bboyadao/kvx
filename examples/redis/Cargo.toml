@@ -1,0 +1,13 @@
+[package]
+name = "kvx-example-redis"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+
+kvx = { path = "../../crates/kvx" }
+kvx-core = { path = "../../crates/kvx-core" }
+kvx-types = { path = "../../crates/kvx-types" }
+kvx-driver-redis = { path = "../../crates/kvx-driver-redis" }
+anyhow = "1.0.103"

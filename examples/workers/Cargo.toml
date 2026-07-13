@@ -1,0 +1,17 @@
+[package]
+name = "kvx-example-workers"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+worker = "0.8"
+worker-macros = "0.8"
+
+kvx-core = { path = "../../crates/kvx-core" }
+kvx-driver-workers = { path = "../../crates/kvx-driver-workers" }
+
+[build-dependencies]
+worker-build = "0.1"

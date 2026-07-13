@@ -1,16 +1,14 @@
 [package]
 name = "kvx-driver-redis"
+version.workspace = true
 edition.workspace = true
 license.workspace = true
-version.workspace = true
-
 
 [dependencies]
-kvx-core = {path = "../kvx-core" }
+kvx-core = { path = "../kvx-core" }
+kvx-types = { path = "../kvx-types" }
 
-kvx-types = {path = "../kvx-types" }
+async-trait.workspace = true
+tokio.workspace = true
 
-async-trait = "0.1.89"
-
-redis = {version = "0.27.6",features = ["tokio-comp"] }
-tokio = "1.52.3"
+redis = { version = "0.27.6", features = ["tokio-comp"] }

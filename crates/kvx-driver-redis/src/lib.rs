@@ -1,3 +1,6 @@
+extern crate kvx_types;
+extern crate redis;
+extern crate async_trait;
 mod client;
 mod delete;
 mod driver;

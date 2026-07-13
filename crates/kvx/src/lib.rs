@@ -1,5 +1,7 @@
 use anyhow::{anyhow, Result};
+mod connection;
 
+pub use connection::KVX;
 use kvx_core::Executor;
 
 use kvx_driver_redis::{
