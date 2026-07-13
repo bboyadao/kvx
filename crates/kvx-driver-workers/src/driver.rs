@@ -1,22 +1,13 @@
-use worker::kv::KvStore;
+use kvx_core::Driver;
 
-pub struct WorkersDriver {
-    kv: KvStore,
-}
+use crate::{
+    WorkersClient,
+    WorkersOptions,
+};
 
-impl WorkersDriver {
-    #[inline]
-    pub fn new(kv: KvStore) -> Self {
-        Self { kv }
-    }
+pub struct WorkersDriver;
 
-    #[inline]
-    pub fn inner(&self) -> &KvStore {
-        &self.kv
-    }
-
-    #[inline]
-    pub fn into_inner(self) -> KvStore {
-        self.kv
-    }
+impl Driver for WorkersDriver {
+    type Client = WorkersClient;
+    type Options = WorkersOptions;
 }

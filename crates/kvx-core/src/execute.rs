@@ -3,7 +3,7 @@ use async_trait::async_trait;
 use crate::KvxError;
 
 
-#[async_trait]
+#[async_trait(?Send)]
 pub trait Execute<O>: Send + Sync {
 
     type Output: Send;

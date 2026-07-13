@@ -5,19 +5,12 @@ use crate::{
     Handler,
     KvxError,
 };
-
-
-
 pub struct Executor<C> {
 
     client: C,
 
 }
-
-
-
 impl<C> Executor<C> {
-
     pub fn new(
         client: C,
     ) -> Self {
@@ -27,41 +20,26 @@ impl<C> Executor<C> {
         }
 
     }
-
-
     pub fn client(
         &self,
     ) -> &C {
-
         &self.client
-
     }
-
 }
-
-
-
-#[async_trait]
+#[async_trait(?Send)]
 impl<C, O> Execute<O> for Executor<C>
 where
-    C: Handler<O> + Send + Sync,
+    C: Handler<O> + Sync,
     O: Send + Sync + 'static,
 {
-
     type Output = C::Output;
-
-
     async fn execute(
         &self,
         operation: O,
     )
     -> Result<Self::Output, KvxError> {
-
-
         self.client
             .handle(operation)
             .await
-
     }
-
 }

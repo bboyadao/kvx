@@ -11,7 +11,7 @@ use kvx_types::Set;
 use crate::RedisClient;
 
 
-#[async_trait]
+#[async_trait(?Send)]
 impl Handler<Set> for RedisClient {
 
     type Output = ();

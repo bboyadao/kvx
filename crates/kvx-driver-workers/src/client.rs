@@ -9,7 +9,7 @@ impl WorkersClient {
         Self { kv }
     }
 
-    pub fn inner(&self) -> &KvStore {
+    pub(crate) fn kv(&self) -> &KvStore {
         &self.kv
     }
 }

@@ -6,6 +6,7 @@ license.workspace = true
 
 [dependencies]
 kvx-core = { path = "../kvx-core" }
+kvx-types = { path = "../kvx-types" }
 
 worker = "0.8.5"
 async-trait.workspace = true

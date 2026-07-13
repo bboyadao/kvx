@@ -11,7 +11,7 @@ use kvx_types::Delete;
 use crate::RedisClient;
 
 
-#[async_trait]
+#[async_trait(?Send)]
 impl Handler<Delete> for RedisClient {
 
     type Output = bool;
