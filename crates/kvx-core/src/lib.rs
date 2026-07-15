@@ -8,6 +8,7 @@ pub mod commands;
 mod value;
 mod key;
 mod operation;
+pub mod store;
 
 pub use operation::Operation;
 
@@ -32,3 +33,4 @@ pub use value::Value;
 pub use key::Key;
 
 pub use executor::Executor;
+pub use store::Store;

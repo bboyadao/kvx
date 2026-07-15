@@ -1,11 +1,7 @@
 use kvx::{
     connect,
-    Delete,
-    Execute,
-    Get,
-    Set,
 };
-
+use kvx_core::{Delete, Get, Set};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
