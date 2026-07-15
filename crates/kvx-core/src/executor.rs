@@ -1,45 +1,47 @@
-use async_trait::async_trait;
-
 use crate::{
+    Backend,
     Execute,
-    Handler,
     KvxError,
 };
-pub struct Executor<C> {
 
-    client: C,
-
-}
-impl<C> Executor<C> {
-    pub fn new(
-        client: C,
-    ) -> Self {
-
-        Self {
-            client,
-        }
-
-    }
-    pub fn client(
-        &self,
-    ) -> &C {
-        &self.client
-    }
-}
-#[async_trait(?Send)]
-impl<C, O> Execute<O> for Executor<C>
+pub struct Executor<B>
 where
-    C: Handler<O> + Sync,
-    O: Send + Sync + 'static,
+    B: Backend,
 {
-    type Output = C::Output;
-    async fn execute(
+    backend: B,
+}
+
+impl<B> Executor<B>
+where
+    B: Backend,
+{
+    pub fn new(
+        backend: B,
+    ) -> Self {
+        Self { backend }
+    }
+
+    pub fn backend(
+        &self,
+    ) -> &B {
+        &self.backend
+    }
+
+    pub async fn execute<O>(
         &self,
         operation: O,
-    )
-    -> Result<Self::Output, KvxError> {
-        self.client
-            .handle(operation)
-            .await
+    ) -> Result<O::Output, KvxError>
+    where
+        O: Execute,
+    {
+        let request =
+            operation.into_request();
+
+        let response =
+            self.backend
+                .execute(request)
+                .await?;
+
+        O::from_response(response)
     }
 }

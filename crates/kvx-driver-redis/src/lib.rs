@@ -1,14 +1,8 @@
-extern crate kvx_types;
-extern crate redis;
-extern crate async_trait;
 mod client;
-mod delete;
-mod driver;
-mod get;
+mod factory;
 mod options;
-mod set;
-
+mod backend;
 
 pub use client::RedisClient;
-pub use driver::RedisDriver;
+pub use factory::RedisBackendFactory;
 pub use options::RedisOptions;

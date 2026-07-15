@@ -1,4 +1,4 @@
-use kvx_core::Driver;
+use kvx_core::{BackendFactory};
 
 use crate::{
     RedisClient,
@@ -6,10 +6,10 @@ use crate::{
 };
 
 
-pub struct RedisDriver;
+pub struct RedisBackendFactory;
 
 
-impl Driver for RedisDriver {
+impl BackendFactory for RedisBackendFactory {
 
     type Client = RedisClient;
 

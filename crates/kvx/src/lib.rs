@@ -1,21 +1,10 @@
-use anyhow::{anyhow, Result};
-mod connection;
-
-pub use connection::KVX;
-use kvx_core::Executor;
-
-use kvx_driver_redis::{
-    RedisClient,
-    RedisOptions,
-};
-
-
 pub use kvx_core::{
     Execute,
+    Executor,
     KvxError,
 };
 
-pub use kvx_types::{
+pub use kvx_core::{
     Delete,
     Get,
     Set,
@@ -23,22 +12,26 @@ pub use kvx_types::{
 };
 
 
+use anyhow::{anyhow, Result};
+
+use kvx_driver_redis::{
+    RedisClient,
+    RedisOptions,
+};
+
 
 pub async fn connect(
     url: &str,
 )
 -> Result<Executor<RedisClient>> {
 
-
     if url.starts_with("redis://") {
-
 
         let client =
             RedisClient::connect(
                 RedisOptions::new(url)
             )
             .await?;
-
 
         return Ok(
             Executor::new(client)
@@ -52,5 +45,4 @@ pub async fn connect(
             url
         )
     )
-
 }

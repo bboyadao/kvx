@@ -18,3 +18,30 @@ impl Get {
 impl Operation for Get {
     type Output = Option<Value>;
 }
+
+use crate::{
+    Execute,
+    KvxError,
+    Request,
+    Response,
+};
+
+impl Execute for Get {
+    type Output = Option<Value>;
+
+    fn into_request(self) -> Request {
+        Request::Get(self)
+    }
+
+    fn from_response(
+        response: Response,
+    ) -> Result<Self::Output, KvxError> {
+        match response {
+            Response::Value(value) => Ok(value),
+
+            _ => Err(KvxError::Protocol(
+                "expected Response::Value".into(),
+            )),
+        }
+    }
+}

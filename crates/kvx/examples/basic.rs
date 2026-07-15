@@ -1,30 +1,72 @@
-use kvx::KVX;
+use kvx::{
+    connect,
+    Delete,
+    Execute,
+    Get,
+    Set,
+};
 
 
 #[tokio::main]
-async fn main() {
+async fn main() -> anyhow::Result<()> {
 
-    let client = KVX::connect(
-        "redis://127.0.0.1/"
-    )
-    .await
-    .unwrap();
+    let client =
+        connect(
+            "redis://127.0.0.1/"
+        )
+        .await?;
 
 
     client
-        .set(
-            "hello",
-            "world"
+        .execute(
+            Set::new(
+                "hello",
+                "world",
+            )
         )
-        .await
-        .unwrap();
+        .await?;
 
 
-    let v = client
-        .get("hello")
-        .await
-        .unwrap();
+    let value =
+        client
+            .execute(
+                Get::new(
+                    "hello"
+                )
+            )
+            .await?;
 
 
-    println!("{:?}", v);
+    println!(
+        "GET hello = {:?}",
+        value
+    );
+
+
+    client
+        .execute(
+            Delete::new(
+                "hello"
+            )
+        )
+        .await?;
+
+
+    let value =
+        client
+            .execute(
+                Get::new(
+                    "hello"
+                )
+            )
+            .await?;
+
+
+    println!(
+        "GET hello after delete = {:?}",
+        value
+    );
+
+
+    Ok(())
 }

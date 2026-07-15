@@ -1,41 +1,37 @@
 use crate::{
-    Driver,
+    Backend,
     Executor,
 };
 
 
-pub struct Store<D>
+pub struct Store<B>
 where
-    D: Driver
+    B: Backend,
 {
-
-    executor: Executor<D>,
-
+    executor: Executor<B>,
 }
 
 
-
-impl<D> Store<D>
+impl<B> Store<B>
 where
-    D: Driver
+    B: Backend,
 {
 
     pub fn new(
-        driver:D
-    )->Self {
+        backend: B,
+    ) -> Self {
 
         Self {
             executor:
-                Executor::new(driver)
+                Executor::new(backend)
         }
 
     }
 
 
-
     pub fn executor(
-        &self
-    )->&Executor<D>{
+        &self,
+    ) -> &Executor<B> {
 
         &self.executor
 

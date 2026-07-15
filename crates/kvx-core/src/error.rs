@@ -12,4 +12,7 @@ pub enum KvxError {
 
     #[error("key is not valid UTF-8")]
     InvalidKeyEncoding,
+
+    #[error("protocol error: {0}")]
+    Protocol(String),
 }

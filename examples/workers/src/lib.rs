@@ -5,7 +5,7 @@ use kvx_driver_workers::WorkersClient;
 
 #[event(fetch)]
 async fn main(
-    req: Request,
+    _req: Request,
     env: Env,
     _ctx: Context,
 ) -> Result<Response> {
@@ -13,7 +13,7 @@ async fn main(
 
     let kv = env.kv("MY_KV")?;
 
-    let client = WorkersClient::new(kv);
+    let _client = WorkersClient::new(kv);
 
 
     Response::ok("kvx works")

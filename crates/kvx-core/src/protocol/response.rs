@@ -1,10 +1,10 @@
-use kvx_types::Value;
+use crate::Value;
 
 #[derive(Debug)]
 pub enum Response {
+    Value(Option<Value>),
 
-    Value(Value),
+    Bool(bool),
 
     Empty,
-
 }

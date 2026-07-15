@@ -1,4 +1,4 @@
-use crate::{Key, Operation, Value};
+use crate::{Execute, Key, KvxError, Operation, Request, Response, Value};
 
 #[derive(Debug, Clone)]
 pub struct Set {
@@ -28,4 +28,25 @@ impl Set {
 
 impl Operation for Set {
     type Output = ();
+}
+
+
+impl Execute for Set {
+    type Output = ();
+
+    fn into_request(self) -> Request {
+        Request::Set(self)
+    }
+
+    fn from_response(
+        response: Response,
+    ) -> Result<Self::Output, KvxError> {
+        match response {
+            Response::Empty => Ok(()),
+
+            _ => Err(KvxError::Protocol(
+                "expected Response::Empty".into(),
+            )),
+        }
+    }
 }

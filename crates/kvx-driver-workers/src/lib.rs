@@ -1,7 +1,8 @@
 mod client;
+mod backend;
+mod driver;
 mod options;
-mod get;
-mod delete;
-mod set;
 
+pub use driver::WorkersBackendFactory;
 pub use client::WorkersClient;
+pub use options::WorkersOptions;

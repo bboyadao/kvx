@@ -1,4 +1,4 @@
-use crate::{Key, Operation};
+use crate::{Execute, Key, KvxError, Operation, Request, Response};
 
 #[derive(Debug, Clone)]
 pub struct Delete {
@@ -17,4 +17,24 @@ impl Delete {
 
 impl Operation for Delete {
     type Output = bool;
+}
+
+impl Execute for Delete {
+    type Output = bool;
+
+    fn into_request(self) -> Request {
+        Request::Delete(self)
+    }
+
+    fn from_response(
+        response: Response,
+    ) -> Result<Self::Output, KvxError> {
+        match response {
+            Response::Bool(value) => Ok(value),
+
+            _ => Err(KvxError::Protocol(
+                "expected Response::Bool".into(),
+            )),
+        }
+    }
 }
