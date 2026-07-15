@@ -8,5 +8,5 @@ edition = "2024"
 anyhow = "1"
 tokio = { version = "1", features = ["full"] }
 kvx-core = { path = "../kvx-core" }
-kvx-types = { path = "../kvx-types" }
+
 kvx-driver-redis = { path = "../kvx-driver-redis" }
